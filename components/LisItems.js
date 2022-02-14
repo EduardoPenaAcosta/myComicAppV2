@@ -1,10 +1,37 @@
 import React from 'react';
+import {SwipeListView} from "react-native-swipe-list-view";
 
-import {Text} from 'react-native'
+// styled Components
+import {
+    ListView,
+    ListViewHidden, 
+    TodoText,
+    TodoDate,
+    HiddenButton,
+    SwipedTodoText,
+    colors
+} from '../styles/appStyles'
 
-const ListItems = ()  => {
+
+
+const ListItems = ({comics, setComics})  => {
     return(
-        <Text> List items here: </Text>
+        <SwipeListView
+            data={comics}
+            renderItem={(data) => {
+                return(
+                    <ListView>
+                        <>
+                        <TodoText>{data.item.title}</TodoText>
+                        <TodoDate>{data.item.date}</TodoDate>
+                        </>
+                    </ListView>
+                );
+            }}
+            renderHiddenItem={() => {
+
+            }}
+        />
     );
 }
 
