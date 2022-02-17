@@ -13,25 +13,23 @@ const Home = () => {
     //initial comics
     const initialComics = [{
         title: 'Batman',
-        date: " Fri, 08 Jan 2022",
-        key: "1"
+        key: Math.random() *1
     }, {
         title: 'Spiderman',
-        date: " Fri, 08 Jan 2022",
-        key: "2"
+        key: Math.random() *1
     },{
         title: 'Pokemon',
-        date: " Fri, 08 Jan 2022",
-        key: "3"
+        key: Math.random() *1
     }]
 
 
     const [comics, setComics] = useState(initialComics);
-    const [todoInputValue, setTodoInputValue] = useState();
+    const [comicInputValue, setComicInputValue] = useState();
     const [modalVisible, setModalVisible] = useState(false);
+    const [title, setTitle] = useState("Añadir comic")
 
     // function to add a new comic to the
-    const handleAddTodo = (comic) => {
+    const handleAddComic = (comic) => {
         const newComics = [...comics, comic];
         setComics(newComics);
         setModalVisible(false);
@@ -42,7 +40,7 @@ const Home = () => {
     const handleEdit = (item) => {
         setComicAEditar(item);
         setModalVisible(true);
-        setTodoInputValue(item.title);
+        setComicInputValue(item.title);
     }
 
     const handleEditComic = (editedComic) => {
@@ -54,6 +52,16 @@ const Home = () => {
         setModalVisible(false);
     }
 
+    const handleTitle = (isTrue) =>{
+        if(isTrue){
+            setTitle("Editar comic");
+        }else{
+            setTitle("Añadir comic")
+        }
+        
+    }
+
+
 
    
     return(
@@ -63,16 +71,19 @@ const Home = () => {
             comics={comics}
             setComics={setComics}
             handleEdit={handleEdit}
+            handleTitle={handleTitle}
         />
         <InputModal 
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
-            todoInputValue={todoInputValue}
-            setTodoInputValue={setTodoInputValue}
-            handleAddTodo={handleAddTodo}
+            comicInputValue={comicInputValue}
+            setComicInputValue={setComicInputValue}
+            handleAddComic={handleAddComic}
             comics={comics}
             setComicAEditar={setComicAEditar}
             handleEditComic={handleEditComic}
+            title={title}
+            handleTitle={handleTitle}
         />
         </>
     );

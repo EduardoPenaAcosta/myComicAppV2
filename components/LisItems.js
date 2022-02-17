@@ -6,7 +6,6 @@ import {
     ListView,
     ListViewHidden, 
     TodoText,
-    TodoDate,
     HiddenButton,
     SwipedTodoText,
     colors
@@ -16,7 +15,7 @@ import {
 import { Entypo } from '@expo/vector-icons';
 
 
-const ListItems = ({comics, setComics, handleEdit})  => {
+const ListItems = ({comics, setComics, handleEdit,handleTitle})  => {
 
     //Styling swiped
     const [swipedRow, setSwipedRow] = useState(null);
@@ -40,7 +39,7 @@ const ListItems = ({comics, setComics, handleEdit})  => {
                     >
                         <>
                         <RowText>{data.item.title}</RowText>
-                        <RowText>{data.item.date}</RowText>
+                        <RowText>Pulsa para ver su imagen</RowText>
                         </>
                     </ListView>
                 );
@@ -55,7 +54,10 @@ const ListItems = ({comics, setComics, handleEdit})  => {
                         </HiddenButton>
                         <HiddenButton>
                             <Entypo name="edit" size={25} color={colors.secondary} 
-                                    onPress={() => handleEdit(data.item) }
+                                    onPress={() => {
+                                        handleEdit(data.item)
+                                        handleTitle(true);
+                                    } }
                             />
                         </HiddenButton>
                 </ListViewHidden>
@@ -68,11 +70,6 @@ const ListItems = ({comics, setComics, handleEdit})  => {
             previewOpenDelay={3000}
             showsVerticalScrollIndicator={false}
             disableLeftSwipe={true}
-            style={{
-                flex:1,
-                paddingBottom: 30,
-                marginBottom: 40, 
-            }}
             onRowOpen={( (rowKey) => {
                 setSwipedRow(rowKey);
             })}

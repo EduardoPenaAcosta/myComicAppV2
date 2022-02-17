@@ -19,17 +19,19 @@ import {AntDesign} from '@expo/vector-icons';
 const InputModal = ({
                     modalVisible,
                     setModalVisible,
-                    todoInputValue,
-                    setTodoInputValue,
-                    handleAddTodo,
+                    comicInputValue,
+                    setComicInputValue,
+                    handleAddComic,
                     comics,
                     setComicAEditar,
-                    handleEditComic
+                    handleEditComic,
+                    title,
+                    handleTitle
                 }) => {
 
     const handleClose = () => {
         setModalVisible(false);
-        setTodoInputValue("");
+        setComicInputValue("");
         setComicAEditar(null);
     }
 
@@ -37,24 +39,25 @@ const InputModal = ({
 
         if(!setComicAEditar){
             alert("Se ha añadido un nuevo comic");
-            handleAddTodo({
+            handleAddComic({
                 title: todoInputValue,
-                date: new Date().toUTCString(),
-                key: `${(comics[comics.length-1] && parseInt(comics[comics.length-1].key)+1 || 1)}`,
+                key: `${Math.random()*1}`,
             });
         }else{
             handleEditComic({
-                title: todoInputValue,
-                date: setComicAEditar.date,
+                title: comicInputValue,
                 key: setComicAEditar.key
             })
         }
-        setTodoInputValue(""); 
+        setComicInputValue(""); 
     }
 
     return(
         <>
-            <ModalButton onPress={() => {setModalVisible(true)}}>
+            <ModalButton onPress={() => {
+                                        setModalVisible(true);
+                                        handleTitle(false);
+                                        }}>
                 <AntDesign name="plus" size={30} color={colors.primary}/>
             </ModalButton>
 
@@ -67,7 +70,7 @@ const InputModal = ({
                 <ModalContainer>
                     <ModalView>
                     <ModalIcon>
-                        <HeaderTitle>Introduce comic</HeaderTitle>
+                        <HeaderTitle>{title}</HeaderTitle>
                         <AntDesign name="edit" size={30} color={colors.tertiary} />
                     </ModalIcon>
 
@@ -76,8 +79,8 @@ const InputModal = ({
                         placeholderTextColor={colors.alternative}
                         selectionColors={colors.secondary}
                         autoFocus={true}
-                        onChangeText={(text) => setTodoInputValue(text)}
-                        value={todoInputValue}
+                        onChangeText={(text) => setComicInputValue(text)}
+                        value={comicInputValue}
                         onSubmitingEditing={handleSubmit}
                     />
                     <ModalActionGroup>
