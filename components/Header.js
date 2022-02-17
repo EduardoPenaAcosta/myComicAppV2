@@ -15,10 +15,6 @@ const Header = () => {
     return(
         <HeaderView>
             <HeaderTitle>ComicListApp</HeaderTitle>
-            <HeaderButton>
-                <Entypo name="trash" size={25} color={colors.tertiary} />
-            </HeaderButton>
-
         </HeaderView>
     );
 }
