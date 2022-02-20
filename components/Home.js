@@ -5,28 +5,34 @@ import {Text} from 'react-native'
 //Components
 import Header from './Header';
 import Listitems from './LisItems'
+import AddModal from './AddModal';
 import InputModal from './InputModal';
+import ImageModal from './ImageModal';
 
 
 const Home = () => {
 
+    let numRandom = Math.random() * 1;
+
     //initial comics
     const initialComics = [{
         title: 'Batman',
-        key: Math.random() *1
+        key: String(Math.random()*1)
     }, {
         title: 'Spiderman',
-        key: Math.random() *1
+        key: String(Math.random()*1)
     },{
         title: 'Pokemon',
-        key: Math.random() *1
+        key: String(Math.random()*1)
     }]
 
 
     const [comics, setComics] = useState(initialComics);
     const [comicInputValue, setComicInputValue] = useState();
     const [modalVisible, setModalVisible] = useState(false);
-    const [title, setTitle] = useState("Añadir comic")
+    const [modalImageVisible,setModalImageVisible] = useState(false);
+    const [modalAddVisible, setModalAddVisible] = useState(false);
+    
 
     // function to add a new comic to the
     const handleAddComic = (comic) => {
@@ -52,18 +58,7 @@ const Home = () => {
         setModalVisible(false);
     }
 
-    const handleTitle = (isTrue) =>{
-        if(isTrue){
-            setTitle("Editar comic");
-        }else{
-            setTitle("Añadir comic")
-        }
-        
-    }
 
-
-
-   
     return(
         <>
         <Header />
@@ -71,19 +66,32 @@ const Home = () => {
             comics={comics}
             setComics={setComics}
             handleEdit={handleEdit}
-            handleTitle={handleTitle}
+            setModalImageVisible={setModalImageVisible}
         />
+        <AddModal
+         modalAddVisible={modalAddVisible}
+         setModalAddVisible={setModalAddVisible}
+         comicInputValue={comicInputValue}
+         setComicInputValue={setComicInputValue}
+         handleAddComic={handleAddComic}
+         comics={comics}
+         setComicAEditar={setComicAEditar}
+         handleEditComic={handleEditComic}
+         />
         <InputModal 
             modalVisible={modalVisible}
-            setModalVisible={setModalVisible}
+            setModalVisible={setModalAddVisible}
             comicInputValue={comicInputValue}
             setComicInputValue={setComicInputValue}
             handleAddComic={handleAddComic}
             comics={comics}
             setComicAEditar={setComicAEditar}
             handleEditComic={handleEditComic}
-            title={title}
-            handleTitle={handleTitle}
+        />
+
+        <ImageModal 
+            modalImageVisible = {modalImageVisible}
+            setModalImageVisible={setModalImageVisible}
         />
         </>
     );

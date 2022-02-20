@@ -15,7 +15,7 @@ import {
 import { Entypo } from '@expo/vector-icons';
 
 
-const ListItems = ({comics, setComics, handleEdit,handleTitle})  => {
+const ListItems = ({comics, setComics, handleEdit,handleTitle,setModalImageVisible})  => {
 
     //Styling swiped
     const [swipedRow, setSwipedRow] = useState(null);
@@ -36,6 +36,10 @@ const ListItems = ({comics, setComics, handleEdit,handleTitle})  => {
                 return(
                     <ListView 
                         underlayColor={colors.primary}
+                        onPress={() => {
+                            setModalImageVisible(true);
+                        }}
+                    
                     >
                         <>
                         <RowText>{data.item.title}</RowText>
@@ -48,7 +52,8 @@ const ListItems = ({comics, setComics, handleEdit,handleTitle})  => {
                 return(
                     <ListViewHidden>
                         <HiddenButton
-                            onPress={() => handleDelete(rowMap, data.item.key) }
+                            onPress={() => handleDelete(
+                                rowMap, data.item.key) }
                         >
                             <Entypo name="trash" size={25} color={colors.secondary} />
                         </HiddenButton>
@@ -57,7 +62,7 @@ const ListItems = ({comics, setComics, handleEdit,handleTitle})  => {
                                     onPress={() => {
                                         handleEdit(data.item)
                                         handleTitle(true);
-                                    } }
+                                    }}
                             />
                         </HiddenButton>
                 </ListViewHidden>

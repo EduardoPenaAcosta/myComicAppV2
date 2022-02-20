@@ -16,33 +16,36 @@ import{
 import {AntDesign} from '@expo/vector-icons';
 
 
-const InputModal = ({
-                    modalVisible,
-                    setModalVisible,
+const AddModal = ({
+                    modalAddVisible,
+                    setModalAddVisible,
                     comicInputValue,
                     setComicInputValue,
+                    handleAddComic,
                     setComicAEditar,
-                    handleEditComic,
+                    handleTitle
                 }) => {
 
     const handleClose = () => {
-        setModalVisible(false);
+        setModalAddVisible(false);
         setComicInputValue("");
         setComicAEditar(null);
     }
 
     const handleSubmit = () => {
-            handleEditComic({
-                title: comicInputValue,
-                key: setComicAEditar.key
-            })
+        handleAddComic({
+            title: comicInputValue,
+            key: (setComicAEditar.length + 1),
+        });
+        setModalAddVisible(false);
         setComicInputValue(""); 
     }
 
     return(
         <>
             <ModalButton onPress={() => {
-                                        setModalVisible(true);
+                                        setModalAddVisible(true);
+                                        handleTitle(false);
                                         }}>
                 <AntDesign name="plus" size={30} color={colors.primary}/>
             </ModalButton>
@@ -50,18 +53,18 @@ const InputModal = ({
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={modalVisible}
+                visible={modalAddVisible}
                 onRequestClose={() => handleClose()}
             >
                 <ModalContainer>
                     <ModalView>
                     <ModalIcon>
-                        <HeaderTitle>Editar comic</HeaderTitle>
+                        <HeaderTitle>Añadir comic</HeaderTitle>
                         <AntDesign name="edit" size={30} color={colors.tertiary} />
                     </ModalIcon>
 
                     <StyledInput 
-                        placeholder = "Add a comic"
+                        placeholder = "Añade un comic"
                         placeholderTextColor={colors.alternative}
                         selectionColors={colors.secondary}
                         autoFocus={true}
@@ -74,7 +77,7 @@ const InputModal = ({
                             <AntDesign name="close" size={28} color={colors.secondary} />
                         </ModalAction>
                         <ModalAction color={colors.primary} onPress={handleSubmit}>
-                            <AntDesign name="edit" size={28} color={colors.secondary} />
+                            <AntDesign name="check" size={28} color={colors.secondary} />
                         </ModalAction>
                     </ModalActionGroup>
                     </ModalView>
@@ -84,4 +87,4 @@ const InputModal = ({
     );
 }
 
-export default InputModal;
+export default AddModal;
